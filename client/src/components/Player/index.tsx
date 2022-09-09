@@ -21,16 +21,16 @@ import { debounce } from "lodash";
 export default function Player() {
     const spotifyApi = useSpotify();
     const { data: session, status } = useSession();
-    const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState);
-    const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
+    const [currentTrackId, setCurrentTrackId] = useRecoilState<any>(currentTrackIdState);
+    const [isPlaying, setIsPlaying] = useRecoilState<boolean>(isPlayingState);
     const [volume, setVolume] = useState(50);
 
     const songInfo = useSongInfo();
 
     const fetchCurrentSong = () => {
         if (!songInfo) {
-            spotifyApi.getMyCurrentPlayingTrack().then(data => {
-                setCurrentTrackId(data.body?.item?.id);
+            spotifyApi.getMyCurrentPlayingTrack().then((data) => {
+                setCurrentTrackId(data?.body?.item?.id);
 
                 spotifyApi.getMyCurrentPlaybackState().then((data) => {
                     setIsPlaying(data.body?.is_playing);
@@ -71,13 +71,13 @@ export default function Player() {
     )
 
     return (
-        <div className="h-24 bg-gradient-to-b from-black-to-gray-900 text-white grid grid-cols-3 text-xs md:text-base px-2 md:px-8">
-            <div className="flex items-center space x-4">
+        <div className="h-24 shadow-2xl bg-blue-900 text-[#cbd5e1] grid grid-cols-3 text-xs md:text-base px-2 md:px-8">
+            <div className="flex items-center space-x-4">
                 <img className="hidden md:inline h-10 w-10" src={songInfo?.album.images?.[0]?.url} alt="songImage" />
-            </div>
-            <div>
-                <h3>{songInfo?.name}</h3>
-                <p>{songInfo?.artists?.[0]?.name}</p>
+                <div className="flex-col">
+                    <h3>{songInfo?.name}</h3>
+                    <p>{songInfo?.artists?.[0]?.name}</p>
+                </div>
             </div>
 
             <div className="flex items-center justify-evenly"> 

@@ -11,12 +11,16 @@ interface ITrack {
 
 export default function Songs() {
     const playlist = useRecoilValue<PlaylistType>(playlistState);
-    console.log('slkdjfklsdf', playlist)
     return (
-        <div className="px-8 flex-col space-y-1 pb-28 text-white">
+        <div className="flex-col px-8 space-y-1 pb-28 text-[#cbd5e1]">
             {playlist?.tracks?.items.map((track: ITrack, i: number) => (
                 <Song key={track.track.id} track={track} order={i} />
             ))}
         </div>
+        // <div className="px-8 flex-col space-y-1 pb-28 text-white">
+        //     {playlist?.tracks?.items.map((track: ITrack, i: number) => (
+        //         <Song key={track.track.id} track={track} order={i} />
+        //     ))}
+        // </div>
     )
 }

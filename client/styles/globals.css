@@ -4,7 +4,14 @@
 
 
 @layer components {
+    .sidebar-button {
+        @apply flex items-center space-x-2 hover:text-white;
+    }
     .button {
         @apply h-5 w-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out;
+    }
+
+    .icon {
+        @apply h-5 w-5
     }
 }
